@@ -1,9 +1,11 @@
+import sys
 import math
+prog_name=sys.argv[0]
+arg_num=sys.argv[1]
 
 mystrx=[" zero "," one "," two "," three "," four "," five "," six "," seven "," eight "," nine "];
 mystrx0=[" ten "," twenty "," thirty "," fourty "," fifty "," sixty "," seventy "," eighty "," ninty "];
 mystr1x=[" ten "," eleven "," twelve "," thirteen "," fourteen "," fifteen "," sixteen "," seventeen "," eighteen "," nineteen "];
-mystrbig=[" hundred "," thousand "]
 
 def print2(num):
 	op=""
@@ -27,7 +29,7 @@ def isEven(num):
 	else:
 		return True
 
-num=222222123
+num=int(arg_num)
 ndig=1;
 numfordig=num;
 
@@ -42,17 +44,20 @@ mydict={3:"hundred",5:"thousand",4:"thousand",7:"lakhs",6:"lakhs",8:"crore",9:"c
 while(ndig>3):
 	if(not isEven(ndig)):
 		temp=int(math.floor(num/math.pow(10,(ndig-2))))
-		output=output+print2(temp)+mydict[ndig]
+		if(temp!=0):		
+			output=output+print2(temp)+mydict[ndig]
 		num=(num%math.pow(10,ndig-2))	
 		ndig=ndig-2
 	elif(isEven(ndig)):
 		temp=int(math.floor(num/math.pow(10,(ndig-1))))
-		output=output+print2(temp)+mydict[ndig]
+		if(temp!=0):		
+			output=output+print2(temp)+mydict[ndig]
 		num=int(num%math.pow(10,ndig-1))
 		ndig=ndig-1
 if(ndig==3):
 	temp=int(math.floor(num/100))
-	output=output+mystrx[temp+1]+"hundred"
+	if(temp!=0):
+		output=output+mystrx[temp]+"hundred"
 	ndig=ndig-1
 	num=num-temp*100
 if(ndig<3):
